@@ -10,7 +10,8 @@
       </nav>
     </div>
   </header>
-
+  <!------------------------------------------------------------------------------------------------------>
+  <!--titulo---> 
   <main class="hero">
     <div class="wrap hero-inner">
       <h1 class="nombre">Restaurante Rosa Melano</h1>
@@ -18,7 +19,8 @@
       <a class="cta" href="#reservas">Reservar mesa</a>
     </div>
   </main>
-
+  <!------------------------------------------------------------------------------------------------------>
+  <!--mesas---> 
   <section class="wrap contenido-principal">
     <h2 class="mesas-disponibles">Mesas disponibles</h2>
     <div id="mesas-disponibles" class="mesas-grid"></div>
@@ -27,23 +29,100 @@
     <div id="mesas-ocupadas" class="mesas-grid"></div>
   </section>
 
-  <aside id="reservas" class="wrap reservas-container">
-    <h2>Realizar reserva</h2>
-    <input type="text" id="customizacion" placeholder="Tu nombre">
-    <input type="number" id="numero-mesa" placeholder="Número de mesa" min="1">
-    <button id="resevar-button">Reservar mesa</button>
+  <div class="contenedor-padre1">
+    <!------------------------------------------------------------------------------------------------------>
+    <!--realizar reserva---> 
+    <aside id="reservas" class="wrap reservas-container">
+      <h2>Realizar reserva</h2>
+      <input type="text" id="customizacion" placeholder="Tu nombre">
+      <input type="number" id="numero-mesa" placeholder="Número de mesa" min="1">
+      <button id="resevar-button">Reservar mesa</button>
 
-    <h3>Emitir reporte</h3>
-    <button id="reporte-button">Generar reporte</button>
-    <pre id="reporte-de-salida"></pre>
-  </aside>
-  
+      <h3>Emitir reporte</h3>
+      <button id="reporte-button">Generar reporte</button>
+      <pre id="reporte-de-salida"></pre>
+    </aside>
+    <!------------------------------------------------------------------------------------------------------>
+    <!--calendario---> 
 
+    <div class="calendario-contenedor">
+
+      <h2 class="titulo-calendario">Calendario</h2> 
+
+      <table class="calendario">   <!--comienza una tabla html---> 
+
+        <thead>  <!--encabezados/dias de la semana---> 
+          <tr>   <!--significa table header (encabezado de tabla)---> 
+            <th>Dom</th>
+            <th>Lun</th>
+            <th>Mar</th>
+            <th>Mié</th>
+            <th>Jue</th>
+            <th>Vie</th>
+            <th>Sáb</th>
+          </tr>
+        </thead>
+
+        <tbody>    <!--cuerpo dias del mes---> 
+          <tr>   <!--cada tr representa una fila de la semana/domingo a sabado---> 
+            <td></td>     <!--al principio o al final de un mes son para los espacios que no pertenecen a septiembre (por ejemplo, si el mes empieza un lunes, el domingo queda vacío).---> 
+            <td class="numero-dia">1</td> <!--cada td representa un dia o celda vacia ---> 
+            <td class="numero-dia">2</td>
+            <td class="numero-dia">3</td>
+            <td class="numero-dia">4</td>
+            <td class="numero-dia">5</td>
+            <td class="numero-dia">6</td>
+          </tr>
+          <tr>
+            <td class="numero-dia">7</td>
+            <td class="numero-dia">8</td>
+            <td class="numero-dia">9</td>
+            <td class="numero-dia">10</td>
+            <td class="numero-dia">11</td>
+            <td class="numero-dia">12</td>
+            <td class="numero-dia">13</td>
+          </tr>
+          <tr>
+            <td class="numero-dia">14</td>
+            <td class="numero-dia">15</td>
+            <td class="numero-dia">16</td>
+            <td class="numero-dia">17</td>
+            <td class="numero-dia">18</td>
+            <td class="numero-dia">19</td>
+            <td class="numero-dia">20</td>
+          </tr>
+          <tr>
+            <td class="numero-dia">21</td>
+            <td class="numero-dia">22</td>
+            <td class="numero-dia">23</td>
+            <td class="numero-dia">24</td>
+            <td class="numero-dia">25</td>
+            <td class="numero-dia">26</td>
+            <td class="numero-dia">27</td>
+          </tr>
+          <tr>
+            <td class="numero-dia">28</td>
+            <td class="numero-dia">29</td>
+            <td class="numero-dia">30</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <!------------------------------------------------------------------------------------------------------>
+  <!--footer---> 
   <footer id="contacto" class="site-footer">
     <div class="wrap">
       <small>© Restaurante Rosa Melano — Medellín</small>
     </div>
   </footer>
   
+
+
+
   <script src="java.js"></script>
 </body>

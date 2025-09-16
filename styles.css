@@ -74,12 +74,18 @@ body {
 .contenido-principal { padding: 28px 0; }
 
 .mesas-grid {
+  
   display: flex;
   flex-wrap: wrap;
   gap: 14px;
   justify-content: center;
   margin-bottom: 18px;
 }
+.mesas-disponibles,
+.mesas-ocupadas {
+  text-align: center;
+}
+
 
 /* tarjeta de mesa limpia */
 .table {
@@ -179,4 +185,40 @@ button:hover, .cta:hover {
   .logo { width: 110px; }
   .table { width: 46%; }
   .wrap { padding: 12px; }
+}
+/*===================calendario===============================================================================*/
+#reservas {
+  order: 2; /* aparecerá después */
+}
+.calendario-contenedor {
+  order: 1; /* aparecerá primero */
+}
+.contenedor-padre1 {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+
+}
+.calendario-contenedor {
+  margin-left: 400px;
+  border: 1px solid #6e6d6d;
+  padding: 15px;
+  text-align: left; /* para que el contenido no se centre */
+  max-width: 600px; /* opcional para limitar tamaño */
+  box-sizing: border-box;
+}
+.calendario {
+  width: auto; /* para que no ocupe todo el ancho */
+  margin: 0; /* elimina margen automático */
+  border-collapse: collapse; /* para que los bordes sean limpios */
+  border: 1px solid #6e6d6d; /* borde general tabla */
+}
+.calendario th, .calendario td {
+  border: 1px solid #6e6d6d;
+  padding: 8px;
+  text-align: center;
+}
+.titulo-calendario {
+  text-align: center;
+  margin-bottom: 10px;
 }

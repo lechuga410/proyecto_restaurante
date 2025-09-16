@@ -129,3 +129,45 @@ function generateReport(){
     });
     reportePre.textContent = text; // escribe todo el texto generado en el <pre>
 } // fin generateReport
+function reservedTableByNumber(tableNumber) {
+    const customerName = document.getElementById("customizacion").value.trim();
+
+    if (!customerName) {
+        alert("Ingrese un nombre válido");
+        return;
+    }
+
+    const table = availabletables.find(t => t.number === tableNumber);
+
+    if (table && !table.reserved) {
+        table.reserved = true;
+        ocupiedtables.push({ number: table.number, customer: customerName });
+        renderTables();
+        document.getElementById("customizacion").value = "";
+    } else {
+        alert("La mesa ya está reservada o no existe");
+    }
+}
+
+function releaseTable(tableNumber) {
+    // Buscar índice en el array de mesas ocupadas
+    const index = ocupiedtables.findIndex(t => t.number === tableNumber);
+
+    if (index !== -1) {
+        // Remover la mesa del arreglo de ocupadas
+        const [table] = ocupiedtables.splice(index, 1);
+
+        // Buscar la mesa correspondiente en availabletables para marcarla como no reservada
+        const availableTable = availabletables.find(t => t.number === tableNumber);
+        if (availableTable) {
+            availableTable.reserved = false;
+            delete availableTable.reserverName; // opcional: eliminar el nombre del reservante
+        }
+
+        // Actualizar la vista
+        renderTables();
+
+    } else {
+        alert("La mesa no está ocupada o no existe");
+    }
+}
