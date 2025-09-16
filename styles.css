@@ -1,0 +1,182 @@
+/* ================== RESET / BASE ================== */
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  background: #000000;        /* fondo negro solicitado */
+  color: #f5f5f5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.45;
+}
+
+/* wrapper para centrar contenido y aplicar ancho máximo */
+.wrap {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* ================== HEADER / NAV ================== */
+.site-header {
+  background: transparent;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.site-header .wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.logo { width: 140px; height: auto; display: block; }
+.main-nav a {
+  color: #dcdcdc;
+  text-decoration: none;
+  margin-left: 18px;
+  font-weight: 600;
+  font-size: 14px;
+}
+.main-nav a:hover { color: #fff; }
+
+/* ================== HERO ================== */
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 56px 0;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.00));
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+}
+.hero-inner { text-align: center; }
+.nombre {
+  margin: 0 0 8px;
+  font-size: 40px;
+  font-weight: 700;
+  color: #fff;
+}
+.sub {
+  margin: 0 0 18px;
+  color: #bfbfbf;
+  font-size: 16px;
+}
+.cta {
+  display: inline-block;
+  padding: 10px 18px;
+  border-radius: 8px;
+  background: #fff;
+  color: #000;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+/* ================== CONTENIDO / MESAS ================== */
+.contenido-principal { padding: 28px 0; }
+
+.mesas-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+
+/* tarjeta de mesa limpia */
+.table {
+  width: 140px;
+  background: #0f0f0f;
+  border: 1px solid rgba(255,255,255,0.04);
+  border-radius: 10px;
+  padding: 10px;
+  text-align: center;
+}
+.table img,
+.mesa-img {
+  width: 100%;
+  height: 96px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.04);
+  margin-bottom: 8px;
+}
+.table .table-name { color: #ddd; font-weight: 600; margin-bottom: 8px; }
+
+/* boton dentro de tarjeta */
+.table button {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+  background: #fff; color: #000;
+}
+
+/* badge ocupada simple */
+.badge-ocupada {
+  display: inline-block;
+  padding: 6px 8px;
+  border-radius: 6px;
+  background: #c0392b;
+  color: #fff;
+  font-size: 13px;
+}
+
+/* ================== RESERVAS (form) ================== */
+.reservas-container {
+  max-width: 520px;
+  margin: 18px auto 40px;
+  text-align: center;
+  background: #0b0b0b;
+  border: 1px solid rgba(255,255,255,0.03);
+  padding: 18px;
+  border-radius: 10px;
+}
+.reservas-container input {
+  width: calc(100% - 24px);
+  margin: 8px 0;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.06);
+  background: transparent;
+  color: #fff;
+}
+.reservas-container input::placeholder { color: #777; }
+
+/* botones principales */
+button, .cta {
+  transition: all .14s ease;
+}
+button:hover, .cta:hover {
+  transform: translateY(-2px);
+}
+
+/* reporte */
+#reporte-de-salida {
+  margin-top: 12px;
+  white-space: pre-wrap;
+  color: #eaeaea;
+  text-align: left;
+  background: rgba(255,255,255,0.02);
+  padding: 10px;
+  border-radius: 8px;
+  max-width: 520px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ================== FOOTER ================== */
+.site-footer {
+  padding: 28px 0 60px;
+  color: #777;
+  text-align: center;
+  border-top: 1px solid rgba(255,255,255,0.03);
+}
+
+/* ================== RESPONSIVE ================== */
+@media (max-width: 720px) {
+  .nombre { font-size: 28px; }
+  .logo { width: 110px; }
+  .table { width: 46%; }
+  .wrap { padding: 12px; }
+}

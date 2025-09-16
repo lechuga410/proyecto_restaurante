@@ -1,0 +1,49 @@
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <img class="logo" src="imagenes/logo.png" alt="Restaurante Rosa Melano">
+      <nav class="main-nav">
+        <a href="#mesas-disponibles">Mesas</a>
+        <a href="#reservas">Reservas</a>
+        <a href="#contacto">Contacto</a>
+        <link rel="stylesheet" href="styles.css">
+      </nav>
+    </div>
+  </header>
+
+  <main class="hero">
+    <div class="wrap hero-inner">
+      <h1 class="nombre">Restaurante Rosa Melano</h1>
+      <p class="sub">Minimal · Cálido · Experiencias en cada plato</p>
+      <a class="cta" href="#reservas">Reservar mesa</a>
+    </div>
+  </main>
+
+  <section class="wrap contenido-principal">
+    <h2 class="mesas-disponibles">Mesas disponibles</h2>
+    <div id="mesas-disponibles" class="mesas-grid"></div>
+
+    <h2 class="mesas-ocupadas">Mesas ocupadas</h2>
+    <div id="mesas-ocupadas" class="mesas-grid"></div>
+  </section>
+
+  <aside id="reservas" class="wrap reservas-container">
+    <h2>Realizar reserva</h2>
+    <input type="text" id="customizacion" placeholder="Tu nombre">
+    <input type="number" id="numero-mesa" placeholder="Número de mesa" min="1">
+    <button id="resevar-button">Reservar mesa</button>
+
+    <h3>Emitir reporte</h3>
+    <button id="reporte-button">Generar reporte</button>
+    <pre id="reporte-de-salida"></pre>
+  </aside>
+  
+
+  <footer id="contacto" class="site-footer">
+    <div class="wrap">
+      <small>© Restaurante Rosa Melano — Medellín</small>
+    </div>
+  </footer>
+  
+  <script src="java.js"></script>
+</body>
