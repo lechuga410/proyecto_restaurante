@@ -71,7 +71,20 @@ body {
 }
 
 /* ================== CONTENIDO / MESAS ================== */
-.contenido-principal { padding: 28px 0; }
+.contenido-principal { padding: 28px 0;
+ }
+.table {
+    width: 140px; /* Ajusta el tamaño del contenedor */
+    background: #0f0f0f;
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: 10px;
+    padding: 10px;
+    display: flex; /* Esto cambia el modelo de diseño a flexbox */
+    flex-direction: column; /* Asegura que los hijos se apilen verticalmente */
+    justify-content: center; /* Centra el contenido en el eje vertical */
+    align-items: center; /* Centra el contenido en el eje horizontal */
+    text-align: center; /* Asegura que el texto (como el nombre de la mesa) esté centrado */
+}
 
 .mesas-grid {
   
@@ -127,7 +140,25 @@ body {
   color: #fff;
   font-size: 13px;
 }
-
+.table {
+    width: 140px;
+    background: #0f0f0f;
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;  /* Esto centra el contenido del div */
+}
+.table button {
+    width: 100%;
+    padding: 8px 10px;
+    border-radius: 8px;
+    border: none;
+    font-weight: 700;
+    cursor: pointer;
+    background: #fff;
+    color: #000;
+    margin-top: 8px;
+}
 /* ================== RESERVAS (form) ================== */
 .reservas-container {
   max-width: 520px;
@@ -187,38 +218,126 @@ button:hover, .cta:hover {
   .wrap { padding: 12px; }
 }
 /*===================calendario===============================================================================*/
-#reservas {
-  order: 2; /* aparecerá después */
-}
-.calendario-contenedor {
-  order: 1; /* aparecerá primero */
-}
+/* Contenedor principal */
+/* ================== CONTENEDOR PADRE ================== */
 .contenedor-padre1 {
   display: flex;
-  gap: 20px;
+  justify-content: space-between; /* Esto distribuye el espacio entre los tres elementos */
   align-items: flex-start;
-
-}
-.calendario-contenedor {
-  margin-left: 400px;
-  border: 1px solid #6e6d6d;
-  padding: 15px;
-  text-align: left; /* para que el contenido no se centre */
-  max-width: 600px; /* opcional para limitar tamaño */
+  width: 100%;
+  gap: 20px;
   box-sizing: border-box;
 }
-.calendario {
-  width: auto; /* para que no ocupe todo el ancho */
-  margin: 0; /* elimina margen automático */
-  border-collapse: collapse; /* para que los bordes sean limpios */
-  border: 1px solid #6e6d6d; /* borde general tabla */
+
+/* ================== CALENDARIO ================== */
+.calendario-contenedor {
+  flex: 1; /* Esto hace que el calendario ocupe el espacio disponible a la izquierda */
+  margin-left: 20px;
+  border: 1px solid #6e6d6d;
+  padding: 15px;
+  max-width: 600px; /* Limitar el tamaño máximo */
+  width: 100%;
+  box-sizing: border-box;
 }
+
+/* ================== RELOJ ================== */
+.reloj-container {
+  display: flex;
+  justify-content: center; /* Centra el reloj */
+  align-items: center; /* Alinea el reloj verticalmente */
+  flex: 0 0 auto; /* Esto hace que el reloj no ocupe más espacio del necesario */
+  width: auto; /* Asegura que el reloj no se estire innecesariamente */
+}
+
+/* ================== RESERVAS ================== */
+.reservas-container {
+  flex: 1; /* Esto hace que las reservas ocupen el espacio disponible a la derecha */
+  margin: 18px auto 40px;
+  text-align: center;
+  background: #0b0b0b;
+  border: 1px solid rgba(255,255,255,0.03);
+  padding: 18px;
+  border-radius: 10px;
+}
+
+/* Contenedor del calendario */
+.calendario-contenedor {
+  margin-left: 20px; /* Ajuste para no quedar demasiado a la derecha */
+  border: 1px solid #6e6d6d;
+  padding: 15px;
+  text-align: left;
+  max-width: 600px; /* Limitar el tamaño máximo */
+  box-sizing: border-box;
+  width: 100%; /* Asegura que se ajusta al contenedor */
+}
+
+/* Título del calendario */
+.titulo-calendario {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+/* Tabla del calendario */
+.calendario {
+  width: 100%; /* Ajustar la tabla al contenedor */
+  border-collapse: collapse; /* Para bordes limpios */
+  border: 1px solid #6e6d6d; /* Borde general para la tabla */
+}
+
+/* Estilos para las celdas de la tabla (días) */
 .calendario th, .calendario td {
   border: 1px solid #6e6d6d;
   padding: 8px;
   text-align: center;
 }
-.titulo-calendario {
-  text-align: center;
+
+/* Estilo para las celdas del calendario (días) */
+.calendario td {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+
+.calendario td:hover {
+  background-color: #f1f1f1; /* Resaltar celdas al pasar el mouse */
+}
+
+/* Botones de navegación del calendario */
+.calendario-nav {
   margin-bottom: 10px;
+  text-align: center; /* Centrado de los botones */
+}
+
+button {
+  font-size: 18px;
+  padding: 5px;
+  margin: 0 10px;
+  cursor: pointer;
+}
+
+/* Estilos para el contenedor de reservas */
+#reservas {
+  order: 2; /* Aparecerá después */
+}
+
+.calendario-contenedor {
+  order: 1; /* Aparecerá primero */
+}
+
+/* Ajustes para pantallas pequeñas (opcional) */
+@media (max-width: 768px) {
+  .contenedor-padre1 {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .calendario-contenedor {
+    margin-left: 0;
+    width: 100%;
+  }
+}
+.reloj-container{
+  justify-content: center;
+  text-align: center;
 }

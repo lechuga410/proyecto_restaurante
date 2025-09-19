@@ -46,13 +46,16 @@
     <!--calendario---> 
 
     <div class="calendario-contenedor">
+      <h2 class="titulo-calendario" id="calendario-titulo">Calendario</h2> 
 
-      <h2 class="titulo-calendario">Calendario</h2> 
+      <div class="calendario-nav">
+        <button id="prev-month">◀</button>
+        <button id="next-month">▶</button>
+      </div>
 
-      <table class="calendario">   <!--comienza una tabla html---> 
-
-        <thead>  <!--encabezados/dias de la semana---> 
-          <tr>   <!--significa table header (encabezado de tabla)---> 
+      <table class="calendario">
+        <thead>
+          <tr>
             <th>Dom</th>
             <th>Lun</th>
             <th>Mar</th>
@@ -62,57 +65,21 @@
             <th>Sáb</th>
           </tr>
         </thead>
-
-        <tbody>    <!--cuerpo dias del mes---> 
-          <tr>   <!--cada tr representa una fila de la semana/domingo a sabado---> 
-            <td></td>     <!--al principio o al final de un mes son para los espacios que no pertenecen a septiembre (por ejemplo, si el mes empieza un lunes, el domingo queda vacío).---> 
-            <td class="numero-dia">1</td> <!--cada td representa un dia o celda vacia ---> 
-            <td class="numero-dia">2</td>
-            <td class="numero-dia">3</td>
-            <td class="numero-dia">4</td>
-            <td class="numero-dia">5</td>
-            <td class="numero-dia">6</td>
-          </tr>
-          <tr>
-            <td class="numero-dia">7</td>
-            <td class="numero-dia">8</td>
-            <td class="numero-dia">9</td>
-            <td class="numero-dia">10</td>
-            <td class="numero-dia">11</td>
-            <td class="numero-dia">12</td>
-            <td class="numero-dia">13</td>
-          </tr>
-          <tr>
-            <td class="numero-dia">14</td>
-            <td class="numero-dia">15</td>
-            <td class="numero-dia">16</td>
-            <td class="numero-dia">17</td>
-            <td class="numero-dia">18</td>
-            <td class="numero-dia">19</td>
-            <td class="numero-dia">20</td>
-          </tr>
-          <tr>
-            <td class="numero-dia">21</td>
-            <td class="numero-dia">22</td>
-            <td class="numero-dia">23</td>
-            <td class="numero-dia">24</td>
-            <td class="numero-dia">25</td>
-            <td class="numero-dia">26</td>
-            <td class="numero-dia">27</td>
-          </tr>
-          <tr>
-            <td class="numero-dia">28</td>
-            <td class="numero-dia">29</td>
-            <td class="numero-dia">30</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
+        <tbody id="calendar-body">
+          <!-- Aquí se generarán los días del mes -->
         </tbody>
       </table>
     </div>
-  </div>
+
+ 
+    <input type="text" id="fecha-seleccionada" disabled> <!-- Muestra la fecha seleccionada -->
+
+   
+      <input type="time" id="hora-seleccionada" />
+
+    </div>
+
+
   <!------------------------------------------------------------------------------------------------------>
   <!--footer---> 
   <footer id="contacto" class="site-footer">
@@ -120,9 +87,6 @@
       <small>© Restaurante Rosa Melano — Medellín</small>
     </div>
   </footer>
-  
-
-
 
   <script src="java.js"></script>
 </body>

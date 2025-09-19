@@ -1,173 +1,345 @@
-const availabletables = [ // arreglo con las mesas disponibles (cada objeto representa una mesa)
-    { number: 1, reserved: false }, // mesa 1, no reservada
-    { number: 2, reserved: false }, // mesa 2, no reservada
-    { number: 3, reserved: false }, // mesa 3, no reservada
-    { number: 4, reserved: false }, // mesa 4, no reservada
-    { number: 5, reserved: false }, // mesa 5, no reservada
-    { number: 6, reserved: false }, // mesa 6, no reservada
-    { number: 7, reserved: false }, // mesa 7, no reservada
-    { number: 8, reserved: false }, // mesa 8, no reservada
-    { number: 9, reserved: false }, // mesa 9, no reservada
-    { number: 10, reserved: false }, // mesa 10, no reservada
-    { number: 11, reserved: false }, // mesa 11, no reservada
-    { number: 12, reserved: false }, // mesa 12, no reservada
-    { number: 13, reserved: false }, // mesa 13, no reservada
-    { number: 14, reserved: false }, // mesa 14, no reservada
-    { number: 15, reserved: false }, // mesa 15, no reservada
-    { number: 16, reserved: false }, // mesa 16, no reservada
-    { number: 17, reserved: false }, // mesa 17, no reservada
-    { number: 18, reserved: false }, // mesa 18, no reservada
-    { number: 19, reserved: false }, // mesa 19, no reservada
-    { number: 20, reserved: false }, // mesa 20, no reservada
-]; // fin del arreglo de mesas
-const ocupiedtables = []; // arreglo vacío para llevar registro (opcional) de mesas ocupadas
+const availabletables = [
+    { number: 1, reservationsByMonth: {} },
+    { number: 2, reservationsByMonth: {} },
+    { number: 3, reservationsByMonth: {} },
+    { number: 4, reservationsByMonth: {} },
+    { number: 5, reservationsByMonth: {} },
+    { number: 6, reservationsByMonth: {} },
+    { number: 7, reservationsByMonth: {} },
+    { number: 8, reservationsByMonth: {} },
+    { number: 9, reservationsByMonth: {} },
+    { number: 10, reservationsByMonth: {} },
+    // más mesas...
+];
 
-document.addEventListener('DOMContentLoaded', () => { // espera a que el DOM esté cargado antes de ejecutar
-    renderTables(); // llama a la función que dibuja/actualiza las mesas en la página
-    const resevarBtn = document.getElementById('resevar-button'); // obtiene el botón de reservar por su id
-    const reporteBtn = document.getElementById('reporte-button'); // obtiene el botón de reporte por su id
+document.addEventListener('DOMContentLoaded', () => {
+    renderTables(); // Llamar para renderizar las mesas disponibles
+    const resevarBtn = document.getElementById('resevar-button');
+    const reporteBtn = document.getElementById('reporte-button');
 
-    if (resevarBtn) resevarBtn.addEventListener('click', reservedTable); // si existe el botón, añade evento click que llama reservedTable
-    if (reporteBtn) reporteBtn.addEventListener('click', generateReport); // si existe el botón, añade evento click que llama generateReport
-}); // fin del listener DOMContentLoaded
+    if (resevarBtn) resevarBtn.addEventListener('click', reservedTable);
+    if (reporteBtn) reporteBtn.addEventListener('click', generateReport);
 
-function renderTables(){ // función que construye la vista de mesas en el HTML
-    const availabletablesDiv = document.getElementById('mesas-disponibles'); // contenedor para mesas disponibles
-    const ocupiedtablesDiv = document.getElementById('mesas-ocupadas'); // contenedor para mesas ocupadas
+    generateCalendar(currentMonth, currentYear); // Inicializa el calendario
+});
 
-    if (!availabletablesDiv || !ocupiedtablesDiv) { // si faltan los contenedores en el HTML
-      console.warn('No se encontraron los contenedores de mesas en el HTML'); // aviso en consola
-      return; // sale de la función para evitar errores
+// Función para renderizar las mesas disponibles y ocupadas
+// Función para renderizar las mesas disponibles y ocupadas
+// Función para renderizar las mesas disponibles y ocupadas
+// Función para renderizar las mesas disponibles y ocupadas
+function renderTables() {
+    const availabletablesDiv = document.getElementById('mesas-disponibles');
+    const ocupiedtablesDiv = document.getElementById('mesas-ocupadas');
+
+    if (!availabletablesDiv || !ocupiedtablesDiv) {
+        console.warn('No se encontraron los contenedores de mesas en el HTML');
+        return;
     }
 
-    availabletablesDiv.innerHTML = ''; // limpia el HTML previo de mesas disponibles
-    ocupiedtablesDiv.innerHTML = ''; // limpia el HTML previo de mesas ocupadas
+    availabletablesDiv.innerHTML = '';
+    ocupiedtablesDiv.innerHTML = '';
 
-    availabletables.forEach(table => { // recorre cada objeto mesa del arreglo
-        const tableDiv = document.createElement('div'); // crea un div para contener la tarjeta de la mesa
-        tableDiv.className = 'table'; // asigna la clase 'table' para estilos
+    availabletables.forEach(table => {
+        const tableDiv = document.createElement('div');
+        tableDiv.className = 'table';
         tableDiv.innerHTML = ` 
-          <img class="mesa-img" src="imagenes/mesas.jpg" alt="mesa ${table.number}">
-          <div class="table-name">mesa ${table.number}</div> 
-        `;// rellena el div con la imagen y el nombre de la mesa
+            <img class="mesa-img" src="imagenes/mesas.jpg" alt="mesa ${table.number}">
+            <div class="table-name">Mesa ${table.number}</div>
+        `;
 
-        // si la mesa NO está reservada mostramos botón para reservar
-        if (!table.reserved) {
-            const reserveButton = document.createElement('button'); // crea un botón
-            reserveButton.className = 'button'; // le asigna clase 'button' para estilos
-            reserveButton.textContent = 'reservar'; // texto que aparece en el botón
-            reserveButton.onclick = () => reservedTableByNumber(table.number); // al hacer click llama reservedTableByNumber con el número de mesa
-            tableDiv.appendChild(reserveButton); // añade el botón al div de la mesa
+        // Mostramos las reservas agrupadas por mes
+        const currentYear = new Date().getFullYear();
+        const months = table.reservationsByMonth[currentYear] || {};
 
-            // la agregamos a la sección de mesas disponibles
-            availabletablesDiv.appendChild(tableDiv); // añade el div de la mesa al contenedor de disponibles
+        // Si hay reservas para la mesa
+        if (Object.keys(months).length > 0) {
+            Object.keys(months).forEach(month => {
+                const monthDiv = document.createElement('div');
+                monthDiv.className = 'month-reservation';
+                const monthName = monthNames[month];
+                monthDiv.innerHTML = `<strong>${monthName}</strong>`;
+
+                // Crear un contenedor para las reservas por fecha y hora
+                months[month].forEach(reservation => {
+                    const reserveInfo = document.createElement('div');
+                    reserveInfo.className = 'reservation-info';
+                    reserveInfo.innerHTML = `${reservation.customerName} - ${reservation.date} a las ${reservation.time}`;
+                    monthDiv.appendChild(reserveInfo);
+                });
+
+                // Añadimos todas las reservas del mes
+                tableDiv.appendChild(monthDiv);
+            });
+
+            // Mesa ocupada
+            ocupiedtablesDiv.appendChild(tableDiv);
         } else {
-            // si está reservada, añadimos badge con nombre (si existe)
-            const ocupadoBadge = document.createElement('div'); // crea un div para el badge "ocupada"
-            ocupadoBadge.className = 'badge-ocupada'; // asigna clase para estilos del badge
-            const name = table.reserverName ? ` - ${table.reserverName}` : ''; // si hay nombre del reservante, lo usa; si no, cadena vacía
-            ocupadoBadge.textContent = `reservada${name}`; // texto del badge: "ocupada - Nombre" o solo "ocupada"
-            tableDiv.appendChild(ocupadoBadge); // añade el badge al div de la mesa
-
-            ocupiedtablesDiv.appendChild(tableDiv); // añade el div de la mesa al contenedor de ocupadas
+            // Si no hay reservas para esa mesa, mostrar el botón de "Reservar"
+            const reserveButton = document.createElement('button');
+            reserveButton.className = 'button';
+            reserveButton.textContent = 'Reservar';
+            reserveButton.onclick = () => reservedTableByNumber(table.number);
+            tableDiv.appendChild(reserveButton);
+            availabletablesDiv.appendChild(tableDiv);
         }
-    }); // fin forEach
-} // fin función renderTables
-
-// reservar por número (usado por botones individuales y por el botón general)
-function reservedTableByNumber(number){
-    const idx = availabletables.findIndex(t => t.number === number); // busca índice de la mesa con ese número
-    if (idx === -1) return alert('Mesa no encontrada'); // si no existe, muestra alerta y sale
-
-    if (availabletables[idx].reserved) { // si la mesa ya está reservada
-      return alert('Esa mesa ya está reservada.'); // alerta y sale
-    }
-
-    // tomar nombre del input (si hay)
-    const nameInput = document.getElementById('customizacion'); // obtiene input donde el usuario pone su nombre
-    const reserverName = (nameInput && nameInput.value.trim()) ? nameInput.value.trim() : 'Anónimo'; // toma el valor o 'Anónimo' si está vacío
-
-    availabletables[idx].reserved = true; // marca la mesa como reservada en el arreglo
-    availabletables[idx].reserverName = reserverName; // guarda el nombre del reservante en la propiedad reserverName
-
-    // opcional: llevarla al array de ocupadas (no estrictamente necesario pero lo dejamos)
-    ocupiedtables.push(availabletables[idx]); // añade la mesa reservada al arreglo ocupiedtables
-
-    renderTables(); // vuelve a renderizar las mesas para actualizar la vista
-} // fin reservedTableByNumber
-
-// función llamada por el botón general "resevar-button"
-function reservedTable(){
-    const numInput = document.getElementById('numero-mesa'); // obtiene el input donde se escribe el número de mesa
-    const n = numInput ? Number(numInput.value) : NaN; // convierte el valor a número, o NaN si no existe input
-    if (!n || isNaN(n)) { // valida que sea un número válido y distinto de 0
-        return alert('Ingresa un número de mesa válido en el campo "ingrese el numero de mesa".'); // alerta si inválido
-    }
-    reservedTableByNumber(n); // llama a la función que reserva por número con el número validado
-} // fin reservedTable
-
-// reporte simple: lo ponemos en el <pre id="reporte-de-salida">
-function generateReport(){
-    const reportePre = document.getElementById('reporte-de-salida'); // obtiene el <pre> donde se mostrará el reporte
-    if (!reportePre) { // si no existe ese elemento en el HTML
-      // fallback: alert
-      const total = availabletables.length; // número total de mesas definidas
-      const ocupadas = availabletables.filter(t => t.reserved).length; // cuenta las mesas reservadas
-      const libres = total - ocupadas; // calcula mesas libres
-      return alert(`Total: ${total}\nOcupadas: ${ocupadas}\nLibres: ${libres}`); // muestra reporte por alert como respaldo
-    }
-
-    const ocupadasList = availabletables.filter(t => t.reserved); // obtiene lista de mesas reservadas
-    if (ocupadasList.length === 0) { // si no hay reservas
-        reportePre.textContent = 'No hay reservas registradas.'; // escribe mensaje en el <pre>
-        return; // sale de la función
-    }
-
-    let text = 'Reporte de reservas:\n\n'; // encabezado del reporte
-    ocupadasList.forEach(t => { // recorre cada mesa ocupada
-        text += `Mesa ${t.number} - ${t.reserverName ? t.reserverName : 'Sin nombre'}\n`; // añade línea con número y nombre (o 'Sin nombre')
     });
-    reportePre.textContent = text; // escribe todo el texto generado en el <pre>
-} // fin generateReport
+}
+
+// Función para realizar la reserva
+// Función para realizar la reserva
+// Función para realizar la reserva
 function reservedTableByNumber(tableNumber) {
     const customerName = document.getElementById("customizacion").value.trim();
+    const reservationDate = document.getElementById("fecha-seleccionada").value;
+    const reservationTime = document.getElementById("hora-seleccionada").value;
 
     if (!customerName) {
         alert("Ingrese un nombre válido");
         return;
     }
 
+    if (!reservationDate || !reservationTime) {
+        alert("Seleccione una fecha y hora válidas");
+        return;
+    }
+
     const table = availabletables.find(t => t.number === tableNumber);
 
-    if (table && !table.reserved) {
-        table.reserved = true;
-        ocupiedtables.push({ number: table.number, customer: customerName });
-        renderTables();
-        document.getElementById("customizacion").value = "";
+    if (table) {
+        // Convertimos la fecha en un objeto Date para extraer el mes y año
+        const reservationDateObj = new Date(reservationDate);
+        const month = reservationDateObj.getMonth();
+        const year = reservationDateObj.getFullYear();
+
+        // Si no existe el mes en las reservas de la mesa, lo creamos
+        if (!table.reservationsByMonth[year]) {
+            table.reservationsByMonth[year] = {};
+        }
+        if (!table.reservationsByMonth[year][month]) {
+            table.reservationsByMonth[year][month] = [];
+        }
+
+        // Verificar si ya existe una reserva para la misma fecha y hora
+        const existingReservation = table.reservationsByMonth[year][month].find(
+            reservation => reservation.date === reservationDate && reservation.time === reservationTime
+        );
+
+        if (existingReservation) {
+            // Si ya existe una reserva a esa hora, duplicar la mesa
+            const reservationDiv = document.createElement('div');
+            reservationDiv.className = 'reservation-entry';
+            reservationDiv.innerHTML = ` 
+                <img class="mesa-img" src="imagenes/mesas.jpg" alt="mesa ${table.number}">
+                <div class="table-name">Mesa ${table.number}</div>
+                <div class="reservation-info">
+                    ${customerName} - ${reservationDate} a las ${reservationTime}
+                </div>
+            `;
+
+            // Añadir la nueva "instancia" de la mesa con la reserva a la sección de mesas ocupadas
+            document.getElementById('mesas-ocupadas').appendChild(reservationDiv);
+            alert("La mesa ya está reservada a esa hora. Se ha creado una nueva instancia de la reserva.");
+        } else {
+            // Si no hay una reserva a esa hora, añadir la nueva reserva normalmente
+            table.reservationsByMonth[year][month].push({
+                customerName: customerName,
+                date: reservationDate,
+                time: reservationTime,
+            });
+
+            // Renderizamos las mesas nuevamente para reflejar la nueva reserva
+            renderTables();
+            document.getElementById("customizacion").value = "";
+        }
     } else {
-        alert("La mesa ya está reservada o no existe");
+        alert("La mesa no existe.");
     }
 }
 
-function releaseTable(tableNumber) {
-    // Buscar índice en el array de mesas ocupadas
-    const index = ocupiedtables.findIndex(t => t.number === tableNumber);
 
-    if (index !== -1) {
-        // Remover la mesa del arreglo de ocupadas
-        const [table] = ocupiedtables.splice(index, 1);
-
-        // Buscar la mesa correspondiente en availabletables para marcarla como no reservada
-        const availableTable = availabletables.find(t => t.number === tableNumber);
-        if (availableTable) {
-            availableTable.reserved = false;
-            delete availableTable.reserverName; // opcional: eliminar el nombre del reservante
-        }
-
-        // Actualizar la vista
-        renderTables();
-
-    } else {
-        alert("La mesa no está ocupada o no existe");
+// Función para reservar mesa por el botón general
+function reservedTable() {
+    const numInput = document.getElementById('numero-mesa');
+    const n = numInput ? Number(numInput.value) : NaN;
+    if (!n || isNaN(n)) {
+        return alert('Ingresa un número de mesa válido.');
     }
+    reservedTableByNumber(n);
+}
+
+// Generar reporte
+function generateReport() {
+    const reportePre = document.getElementById('reporte-de-salida');
+    if (!reportePre) {
+        alert('No se encontró el contenedor de reporte.');
+        return;
+    }
+
+    const ocupadasList = availabletables.filter(t => t.reserved);
+    if (ocupadasList.length === 0) {
+        reportePre.textContent = 'No hay reservas registradas.';
+        return;
+    }
+
+    let text = 'Reporte de reservas:\n\n';
+    ocupadasList.forEach(t => {
+        text += `Mesa ${t.number} - ${t.reserverName || 'Sin nombre'}\n`;
+        text += `Fecha de reserva: ${t.reservationDate}\nHora de reserva: ${t.reservationTime}\n\n`;
+    });
+    reportePre.textContent = text;
+}
+
+// Calendario
+const monthNames = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+let currentDate = new Date();
+let currentMonth = currentDate.getMonth();
+let currentYear = currentDate.getFullYear();
+
+// Generar calendario
+function generateCalendar(month, year) {
+    const firstDay = new Date(year, month, 1);
+    const lastDay = new Date(year, month + 1, 0);
+    const daysInMonth = lastDay.getDate();
+    const startDay = firstDay.getDay();
+
+    document.getElementById('calendario-titulo').textContent = `${monthNames[month]} ${year}`;
+
+    const calendarBody = document.getElementById('calendar-body');
+    calendarBody.innerHTML = '';
+
+    let row = document.createElement('tr');
+    for (let i = 0; i < startDay; i++) {
+        row.appendChild(document.createElement('td'));
+    }
+
+    for (let day = 1; day <= daysInMonth; day++) {
+        const cell = document.createElement('td');
+        cell.textContent = day;
+        cell.classList.add('numero-dia');
+        cell.addEventListener('click', () => selectDate(day, month, year));
+        row.appendChild(cell);
+
+        if ((startDay + day) % 7 === 0) {
+            calendarBody.appendChild(row);
+            row = document.createElement('tr');
+        }
+    }
+
+    if (row.children.length > 0) {
+        calendarBody.appendChild(row);
+    }
+}
+
+// Selección de fecha en el calendario
+function selectDate(day, month, year) {
+    selectedDate = new Date(year, month, day);
+    const dateInput = document.getElementById('fecha-seleccionada');
+    const formattedDate = `${year}-${month + 1}-${day}`;
+    dateInput.value = formattedDate;
+}
+
+// Cambiar de mes
+document.getElementById('prev-month').addEventListener('click', () => {
+    if (currentMonth === 0) {
+        currentMonth = 11;
+        currentYear--;
+    } else {
+        currentMonth--;
+    }
+    generateCalendar(currentMonth, currentYear);
+});
+
+document.getElementById('next-month').addEventListener('click', () => {
+    if (currentMonth === 11) {
+        currentMonth = 0;
+        currentYear++;
+    } else {
+        currentMonth++;
+    }
+    generateCalendar(currentMonth, currentYear);
+});
+
+generateCalendar(currentMonth, currentYear);
+function generateReport() {
+    const reportePre = document.getElementById('reporte-de-salida');
+    if (!reportePre) {
+        alert('No se encontró el contenedor de reporte.');
+        return;
+    }
+
+    const currentYear = new Date().getFullYear();
+    let text = 'Reporte de reservas por mes:\n\n';
+
+    // Iterar sobre todas las mesas
+    availabletables.forEach(table => {
+        const months = table.reservationsByMonth[currentYear] || {};
+        text += `Mesa ${table.number}:\n`;
+
+        // Iterar sobre los meses
+        Object.keys(months).forEach(month => {
+            text += `  ${monthNames[month]}:\n`;
+
+            months[month].forEach(reservation => {
+                text += `    ${reservation.date} a las ${reservation.time} - ${reservation.customerName}\n`;
+            });
+        });
+
+        text += '\n';
+    });
+
+    reportePre.textContent = text;
+}
+function renderTables() {
+    const availabletablesDiv = document.getElementById('mesas-disponibles');
+    const ocupiedtablesDiv = document.getElementById('mesas-ocupadas');
+
+    if (!availabletablesDiv || !ocupiedtablesDiv) {
+        console.warn('No se encontraron los contenedores de mesas en el HTML');
+        return;
+    }
+
+    availabletablesDiv.innerHTML = '';
+    ocupiedtablesDiv.innerHTML = '';
+
+    availabletables.forEach(table => {
+        const tableDiv = document.createElement('div');
+        tableDiv.className = 'table';
+        tableDiv.innerHTML = ` 
+            <img class="mesa-img" src="imagenes/mesas.jpg" alt="mesa ${table.number}">
+            <div class="table-name">Mesa ${table.number}</div>
+        `;
+
+        // Mostramos las reservas agrupadas por mes
+        const currentYear = new Date().getFullYear();
+        const months = table.reservationsByMonth[currentYear] || {};
+
+        if (Object.keys(months).length > 0) {
+            // Si hay reservas, mostrar la mesa en las ocupadas
+            Object.keys(months).forEach(month => {
+                const monthDiv = document.createElement('div');
+                monthDiv.className = 'month-reservation';
+                const monthName = monthNames[month];
+                monthDiv.innerHTML = `<strong>${monthName}</strong>`;
+
+                months[month].forEach(reservation => {
+                    const reserveInfo = document.createElement('div');
+                    reserveInfo.className = 'reservation-info';
+                    reserveInfo.innerHTML = `${reservation.customerName} - ${reservation.date} a las ${reservation.time}`;
+                    monthDiv.appendChild(reserveInfo);
+                });
+
+                tableDiv.appendChild(monthDiv);
+            });
+
+            ocupiedtablesDiv.appendChild(tableDiv);
+        } else {
+            // Si no hay reservas para esa mesa, mostrar el botón de "Reservar"
+            const reserveButton = document.createElement('button');
+            reserveButton.className = 'button';
+            reserveButton.textContent = 'Reservar';
+            reserveButton.onclick = () => reservedTableByNumber(table.number);
+            tableDiv.appendChild(reserveButton);
+            availabletablesDiv.appendChild(tableDiv);
+        }
+    });
 }
