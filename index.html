@@ -29,6 +29,31 @@
     <div id="mesas-ocupadas" class="mesas-grid"></div>
   </section>
 
+<section class="wrap contenido-principal reservas-wrapper">
+  <h2>Reservas activas</h2>
+
+  <div class="table-scroll">
+    <table id="tabla-reservas" aria-label="Reservas activas">
+      <colgroup>
+        <col style="width:30%"><col style="width:7%"><col style="width:15%">
+        <col style="width:11%"><col style="width:11%"><col style="width:16%"><col style="width:10%">
+      </colgroup>
+      <thead>
+        <tr>
+          <th>Cliente</th>
+          <th>Mesa</th>
+          <th>Fecha</th>
+          <th>Hora inicio</th>
+          <th>Hora fin</th>
+          <th>Tiempo restante</th>
+          <th>ID</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</section>
+
   <div class="contenedor-padre1">
     <!------------------------------------------------------------------------------------------------------>
     <!--realizar reserva---> 
@@ -45,39 +70,55 @@
     <!------------------------------------------------------------------------------------------------------>
     <!--calendario---> 
 
-    <div class="calendario-contenedor">
-      <h2 class="titulo-calendario" id="calendario-titulo">Calendario</h2> 
+   <!-- ----------------- calendario-contenedor (REEMPLAZAR) ----------------- -->
+<div class="calendario-contenedor">
+  <h2 class="titulo-calendario" id="calendario-titulo">Calendario</h2>
 
-      <div class="calendario-nav">
-        <button id="prev-month">◀</button>
-        <button id="next-month">▶</button>
-      </div>
+  <div class="calendario-nav">
+    <button id="prev-month">◀</button>
+    <button id="next-month">▶</button>
+  </div>
 
-      <table class="calendario">
-        <thead>
-          <tr>
-            <th>Dom</th>
-            <th>Lun</th>
-            <th>Mar</th>
-            <th>Mié</th>
-            <th>Jue</th>
-            <th>Vie</th>
-            <th>Sáb</th>
-          </tr>
-        </thead>
-        <tbody id="calendar-body">
-          <!-- Aquí se generarán los días del mes -->
-        </tbody>
-      </table>
+  <!-- CONTROLES (FUERA de la <table> — así funcionan los inputs correctamente) -->
+  <div class="calendar-controls" role="group" aria-label="Seleccionar fecha y hora">
+    <div class="control control-date">
+      <label for="fecha-seleccionada" class="visually-hidden">Fecha seleccionada</label>
+      <input type="text" id="fecha-seleccionada" readonly placeholder="Selecciona una fecha desde el calendario">
     </div>
+
+    <div class="control control-time">
+      <label for="hora-seleccionada" class="visually-hidden">Hora seleccionada</label>
+      <input type="time" id="hora-seleccionada" />
+    </div>
+
+    <!-- display humano opcional -->
+    <div id="selected-date-display" class="selected-date-display" aria-hidden="true"></div>
+  </div>
+
+  <!-- La tabla del calendario -->
+  <table class="calendario">
+    <thead>
+      <tr>
+        <th>Dom</th><th>Lun</th><th>Mar</th><th>Mié</th><th>Jue</th><th>Vie</th><th>Sáb</th>
+      </tr>
+    </thead>
+    <tbody id="calendar-body">
+      <!-- días generados por JS -->
+    </tbody>
+    </table>
+  </div>
+  <!-- ---------------------------------------------------------------------- -->
+
+
+
+
+    <tbody id="calendar-body">
+    <!-- Aquí se generarán los días del mes -->
+   </div>
 
  
-    <input type="text" id="fecha-seleccionada" disabled> <!-- Muestra la fecha seleccionada -->
-
    
-      <input type="time" id="hora-seleccionada" />
-
-    </div>
+  </div>
 
 
   <!------------------------------------------------------------------------------------------------------>
