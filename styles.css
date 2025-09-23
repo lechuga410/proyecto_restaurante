@@ -247,6 +247,54 @@ body {
   vertical-align: middle;
   white-space: nowrap;
 }
+/*ajustar las fechitas del calendario*/
+.calendario-nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.calendario-nav button {
+  background-color: #3e3f3e; /* Verde suave */
+  border: 2px solid #3c3d3c; /* Borde del mismo color */
+  color: white;
+  font-size: 1.2rem;
+  padding: 0.8rem 1.5rem;
+  border-radius: 50px; /* Botones circulares */
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: bold;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+.calendario-nav button:hover {
+  background-color: #000000; /* Color más oscuro en hover */
+  border-color: #252b25;
+  transform: translateY(-3px); /* Levanta el botón al pasar el cursor */
+}
+
+.calendario-nav button:active {
+  background-color: #e8ece8; /* Aún más oscuro al hacer clic */
+  border-color: #e4ebe4;
+  transform: translateY(1px); /* Botón "hundido" al hacer clic */
+}
+
+.calendario-nav button:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.3); /* Resalta con un borde verde claro */
+}
+/*fin del ajuste de las fechitas del calendario*/
+#resevar-button{
+  margin: 10px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.2);
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+}
 #tabla-reservas tbody tr:nth-child(odd) { background: rgba(255,255,255,0.006); }
 #tabla-reservas tbody tr:hover { background: rgba(255,255,255,0.02); }
 #tabla-reservas td.countdown { font-family: monospace; font-weight: 700; color: #ffd166; text-align: center; }
